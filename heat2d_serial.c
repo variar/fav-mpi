@@ -28,6 +28,13 @@ typedef struct _grid {
   
 } Grid;
 
+int utime()
+{
+struct timeval tv;
+gettimeofday(&tv, NULL);
+return (int)tv.tv_sec*1000000+(int)tv.tv_usec;
+}
+
 double f(double x, double y, double a, double b)
 {
   return exp (-1/(a*a) * (x*x - 2*b*x*y + y*y));
@@ -99,6 +106,8 @@ int main(int argc, char* argv[])
   int i=0;
   int z=0;
   
+  int startTime = utime();
+  
   Grid grid[2];
   grid[0].u = (double*)malloc(sizeof(double)*N*N);
   grid[1].u = (double*)malloc(sizeof(double)*N*N);
@@ -113,10 +122,11 @@ int main(int argc, char* argv[])
   init(&grid[1]);
   
   for (i=0; i<i_ceil; ++i) {
-    printf("step %d of %d\n",i, i_ceil);
     step(&grid[z], &grid[1-z]);
     z = 1-z;
   }
+  
+  printf("Time: %f\n", (utime()-startTime)/1000000.0);
   
   save(&grid[z], "serial_result.txt");
 }
