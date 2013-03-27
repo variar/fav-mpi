@@ -59,7 +59,7 @@ int main(int argc, char** argv)
 
   std::cout << min << std::endl;
   std::cout << max << std::endl;
-  std::cout << sum/(N-3) << std::endl;
+  std::cout << sum/N << std::endl;
   
   return 0;
 }
