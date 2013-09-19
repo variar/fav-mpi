@@ -1,4 +1,4 @@
-#include "Camera.hpp"
+#include "Image.hpp"
 
 #include <iostream>
 
@@ -6,11 +6,7 @@
 
 
 
-void Camera::SaveImage()
-{
-    SaveImage( "img.bmp");
-}
-void Camera::SaveImage ( std::string file_name )
+void Image::SaveImage ( std::string file_name )
 {
     ilBindImage( _image_id[ 1]);
 
@@ -29,7 +25,7 @@ void Camera::SaveImage ( std::string file_name )
 
     std::cout << std::endl << ilGetError();
 }
-void Camera::SetPixel ( int i, int j, Color &color )
+void Image::SetPixel ( int i, int j, Color &color )
 {
     if ( i >= _height_px || j >= _width_px)
         return;
@@ -48,7 +44,7 @@ void Camera::SetPixel ( int i, int j, Color &color )
     //std::cout << color.b;
 }
 
-Color Camera::GetPixel( int i, int j)
+Color Image::GetPixel( int i, int j)
 {
     Color col;
 
@@ -63,29 +59,26 @@ Color Camera::GetPixel( int i, int j)
     return col;
 }
 
-int Camera::GetWidth( )
+int Image::GetWidth( )
 {
     return _width_px;
 }
 
-int Camera::GetHeight( )
+int Image::GetHeight( )
 {
     return _height_px;
 }
 
-
-void Camera::LoadImage()
-{
-    LoadImage( "img.bmp");
-}
-
-void Camera::LoadImage( std::string file_name)
+void Image::LoadImage( std::string file_name)
 {
     ilBindImage( _image_id[ 0]);
-    ilLoadImage( "1.png");
+    ilLoadImage( file_name.c_str( ));
 
-    std::cout << "After load :"<< ilGetError( ) << std::endl;
-
+    int err = ilGetError( );
+    if ( err  != IL_NO_ERROR)
+    {
+        std::cerr << "ERROR while loading :"<< err << std::endl;
+    }
     _width_px  = ilGetInteger( IL_IMAGE_WIDTH);
     _height_px = ilGetInteger( IL_IMAGE_HEIGHT);
 
@@ -98,7 +91,7 @@ void Camera::LoadImage( std::string file_name)
 }
 
 //////////////////////
-Camera::Camera( std::string file_name)
+Image::Image( std::string file_name)
 {
     ///
     ilInit();
@@ -108,7 +101,7 @@ Camera::Camera( std::string file_name)
     LoadImage( file_name);
 }
 
-Camera::~Camera()
+Image::~Image()
 {
     ilDeleteImages( 2, _image_id);
     delete [] _bitmap_in;

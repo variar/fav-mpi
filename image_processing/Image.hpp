@@ -1,21 +1,18 @@
-#ifndef _CAMERA_HPP_
-#define _CAMERA_HPP_
+#ifndef _IMAGE_HPP_
+#define _IMAGE_HPP_
 
 #include <string>
 #include <vector>
-#include <cmath>
-
 
 #include <IL/il.h>
 
-class Color
+struct Color
 {
-public:
     float r,g,b;
 };
 
 
-class Camera
+class Image
 {
 private:
     ILuint         *_image_id;
@@ -24,23 +21,24 @@ private:
 
     int             _width_px;
     int             _height_px;
+
+    void   LoadImage ( std::string file_name);
 public:
 
     //////////////////////
+    // i - строка
+    // j - столбец
     void   SetPixel    ( int i, int j, Color &color);
     Color  GetPixel    ( int i, int j);
 
     int    GetWidth  ( );
     int    GetHeight ( );
 
-    void   LoadImage ();
-    void   LoadImage ( std::string file_name);
 
-    void   SaveImage ();
     void   SaveImage ( std::string file_name);
     //////////////////////
-    Camera ( std::string);
-    ~Camera();
+    Image ( std::string);
+    ~Image();
 };
 
-#endif  //_CAMERA_HPP_
+#endif  //_IMAGE_HPP_
