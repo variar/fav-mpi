@@ -6,23 +6,23 @@
 
 #include <IL/il.h>
 
-struct Color
+typedef struct _Color
 {
     float r,g,b;
-};
+} Color;
 
 
 class Image
 {
 private:
     ILuint         *_image_id;
-    float          *_bitmap_in,
-                   *_bitmap_out;
+    float          *_bitmap;
 
     int             _width_px;
     int             _height_px;
 
     void   LoadImage ( std::string file_name);
+    void   RotateImage ( );
 public:
 
     //////////////////////
