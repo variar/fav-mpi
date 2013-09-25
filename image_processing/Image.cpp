@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-void Image::SaveImage ( std::string file_name )
+void Image::SaveImage ( std::string file_name ) const
 {
     ilBindImage( _image_id[ 1]);
 
@@ -22,7 +22,7 @@ void Image::SaveImage ( std::string file_name )
     std::cout << std::endl << ilGetError();
 }
 
-void Image::SetPixel ( int i, int j, Color &color )
+void Image::SetPixel ( int i, int j, const Color &color )
 {
     if ( i >= _height_px || j >= _width_px)
         return;
@@ -34,7 +34,7 @@ void Image::SetPixel ( int i, int j, Color &color )
     }
 }
 
-Color Image::GetPixel( int i, int j)
+Color Image::GetPixel( int i, int j) const
 {
     Color col;
 
@@ -45,12 +45,12 @@ Color Image::GetPixel( int i, int j)
     return col;
 }
 
-int Image::GetWidth( )
+int Image::GetWidth( ) const
 {
     return _width_px;
 }
 
-int Image::GetHeight( )
+int Image::GetHeight( ) const
 {
     return _height_px;
 }

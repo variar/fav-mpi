@@ -28,14 +28,14 @@ public:
     //////////////////////
     // i - строка
     // j - столбец
-    void   SetPixel    ( int i, int j, Color &color);
-    Color  GetPixel    ( int i, int j);
+    void   SetPixel    ( int i, int j, const Color &color);
+    Color  GetPixel    ( int i, int j) const;
 
-    int    GetWidth  ( );
-    int    GetHeight ( );
+    int    GetWidth  ( ) const;
+    int    GetHeight ( ) const;
 
 
-    void   SaveImage ( std::string file_name);
+    void   SaveImage ( std::string file_name) const;
 
 private:
     ILuint         *_image_id;
