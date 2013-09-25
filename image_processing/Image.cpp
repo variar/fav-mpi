@@ -2,10 +2,6 @@
 
 #include <iostream>
 
-//////////////////////
-
-
-
 void Image::SaveImage ( std::string file_name )
 {
     ilBindImage( _image_id[ 1]);
@@ -25,23 +21,17 @@ void Image::SaveImage ( std::string file_name )
 
     std::cout << std::endl << ilGetError();
 }
+
 void Image::SetPixel ( int i, int j, Color &color )
 {
     if ( i >= _height_px || j >= _width_px)
         return;
 
     {
-        //boost::mutex::scoped_lock  lock ( _monitor_set );
-
         _bitmap[ i * _width_px * 3 + j*3 + 0] = color.r;
         _bitmap[ i * _width_px * 3 + j*3 + 1] = color.g;
         _bitmap[ i * _width_px * 3 + j*3 + 2] = color.b;
     }
-
-
-    //std::cout << color.r;
-    //std::cout << color.g;
-    //std::cout << color.b;
 }
 
 Color Image::GetPixel( int i, int j)
@@ -51,10 +41,6 @@ Color Image::GetPixel( int i, int j)
     col.r = _bitmap[ i * _width_px * 3 + j*3 + 0];
     col.g = _bitmap[ i * _width_px * 3 + j*3 + 1];
     col.b = _bitmap[ i * _width_px * 3 + j*3 + 2];
-
-    //std::cout << col.r;
-    //std::cout << col.g;
-    //std::cout << col.b;
 
     return col;
 }
