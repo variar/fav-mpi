@@ -1,34 +1,38 @@
 #include <sys/time.h>
 
-
 class Timer
 {
 public:
-    void Start( )
+    Timer()
     {
-        gettimeofday( &_start_time, NULL);
+        Start();
     }
-    void Stop( )
+
+    void Start()
     {
-        gettimeofday( &_end_time, NULL);
+        gettimeofday(&_start_time, NULL);
     }
-    double GetTotalTime( )
+    
+    void Stop()
     {
-        return _end_time.tv_sec - _start_time.tv_sec + 0.000001 * ( _end_time.tv_usec - _start_time.tv_usec);
+        gettimeofday(&_end_time, NULL);
     }
-    double GetElapsedTime( )
+    
+    double GetTotalTime()
+    {
+        return _end_time.tv_sec - _start_time.tv_sec + 0.000001 * (_end_time.tv_usec - _start_time.tv_usec);
+    }
+    
+    double GetElapsedTime()
     {
         struct timeval curr_time;
         gettimeofday( &curr_time, NULL);
-        return curr_time.tv_sec - _start_time.tv_sec + 0.000001 * ( curr_time.tv_usec - _start_time.tv_usec);
+        return curr_time.tv_sec - _start_time.tv_sec + 0.000001 * (curr_time.tv_usec - _start_time.tv_usec);
     }
-    Timer( )
-    {
-        Start( );
-    }
+
 private:
-    struct timeval _start_time,
-                   _end_time;
+    struct timeval _start_time;
+    struct timeval _end_time;
 
 };
 
