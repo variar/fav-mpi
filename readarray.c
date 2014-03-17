@@ -49,5 +49,6 @@ int main(int argc, char** argv)
   for (i=0; i<count; ++i) {
     printf("%d\n", array[i]);
   }
+  free(array);
   return 0;
 }
